@@ -67,7 +67,7 @@ Tasks.Notes=Tasks.hasMany(Notes,{
   });
 
 
-db.sync()
+//db.sync()
 
 module.exports = {
     db, Tasks, Notes
