@@ -53,11 +53,12 @@ function createTask(id,title,description,dueDate,status,priority)
     task.classList.add("task","card","flexbox");
     task.id=id;
 
-    // i
-    let i=document.createElement('i');
-    i.classList.add("fa","fa-edit");
-    i.addEventListener('click',()=> {event.stopPropagation();})
-    task.appendChild(i); // added i
+    // editButton
+    let editButton=document.createElement('button');
+    editButton.setAttribute("taskid",id);
+    editButton.classList.add("fa","fa-edit","editButton");
+    editButton.addEventListener('click',ShowUpdateForm);
+    task.appendChild(editButton); // added editButton
     
     //TASK INFO 
     let taskInfo= document.createElement('div');
@@ -132,9 +133,7 @@ function createTask(id,title,description,dueDate,status,priority)
 
 }
 
-
 //function (){this.classList.toggle("hide");}
-
 function toggleNotes()
 {
     var id=this.id;
@@ -290,7 +289,6 @@ async function addNewNote()
 
 async function AddNewTask()
 {
-    
     let title= document.getElementById('title').value;
     //mandatory field
     if(title=="")
@@ -325,4 +323,89 @@ async function AddNewTask()
     })
     .catch(err => {console.log(err);})
 
+}
+
+async function ShowUpdateForm()
+{
+    event.stopPropagation();
+    var myModal = document.getElementById("myModal");
+    myModal.setAttribute("taskid",this.getAttribute('taskid'));
+
+    myModal.classList.toggle('hide');
+
+    await fetch('/tasks/'+this.getAttribute('taskid'),{ method:'GET' })
+    .then(resp => { return resp.json();})
+    .then(data => { 
+        document.getElementById('editDueDate').value=data.dueDate;
+        document.getElementById('editPriority').value=data.priority;
+        document.getElementById('editStatus').checked= data.status=='incomplete'?false:true;
+    })
+    .catch(err => {console.log(err);})
+    
+}
+
+function HideModal()
+{
+    document.getElementById("myModal").classList.add('hide');
+}
+
+async function UpdateTask()
+{
+    let id=document.getElementById("myModal").getAttribute('taskid');
+
+    let editDueDate = document.getElementById('editDueDate').value;
+    let editPriority = document.getElementById('editPriority').value;
+    let editStatus = document.getElementById('editStatus').checked;
+
+    await fetch('/tasks/'+id, {
+        method:'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+          },
+        body:JSON.stringify({
+            'dueDate':editDueDate,
+            'priority':editPriority,
+            'status':editStatus==true?'completed':'incomplete'
+        })
+    })
+    .then(resp => { 
+        return resp.json();
+    }).then(data =>{ 
+        if (data.updated)
+        {
+            alert(" Successfully updated Task.")
+        }
+    
+    })
+    .catch(err=>{console.log(err)})
+}
+
+async function sort(id)
+{
+    console.log(id);
+
+    var tasks=getAllTasks();
+    var data=await Promise.resolve(tasks);
+ 
+    if(id=="sortByDateAscending")
+        data.sort((a,b) =>  {return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()});
+    else if(id=="sortByDateDescending")
+        data.sort((a,b) =>  {return  new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()});
+    else if(id=="sortByStatus")
+    {
+        var sValue={'incomplete':1,'completed':0};
+        data.sort((a,b) =>  {return  sValue[b.status] - sValue[a.status]});
+    }
+    else{
+        var pValue={'high':2,'medium':1, 'low':0 };
+        data.sort((a,b) =>  {return  pValue[b.priority] - pValue[a.priority]});
+    }
+
+    document.getElementById("task-list").innerHTML="";
+    var taskList=document.getElementById("task-list");
+    for(let i=0; i<Object.keys(data).length; i++)
+    {
+        let task= createTask(data[i].id,data[i].title,data[i].description,data[i].dueDate,data[i].status,data[i].priority);
+        taskList.appendChild(task);
+    }
 }

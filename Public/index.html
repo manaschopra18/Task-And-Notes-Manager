@@ -10,6 +10,7 @@
     <script src="./Script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.bundle.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 
@@ -48,8 +49,20 @@
             </div>
         </form>
     </div>
-    <div class="task-sort">
-        
+    <div class="task-sort center">
+          <div class="btn-group">
+            <button type="button" class="btn btn-info" onclick="sort(this.id)" id="sortByPriority">Priority</button>
+            <button type="button" class="btn btn-info" onclick="sort(this.id)" id="sortByStatus">Status</button>
+            <div class="btn-group">
+              <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                 Due Date
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" onclick="sort(this.id)" id="sortByDateAscending">Ascending</a>
+                <a class="dropdown-item" href="#" onclick="sort(this.id)" id="sortByDateDescending">Descending</a>
+              </div>
+            </div>
+          </div>
     </div>
     <div id="task-list">
         
@@ -92,7 +105,52 @@
         </div>  -->
     </div>
 
-
+<!-- MODAL POPUP STARTS HERE-->
+<div class="container">
+    <!-- The Modal -->
+    <div class="editModal hide" id="myModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Task</h4>
+            <button type="button" class="close" onclick="HideModal()">&times;</button>
+          </div>
+          
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form class="form form-inline">
+                
+                <div class="form-group col-md-5">
+                    <label class="col-md-4" for="editDueDate"> Due Date </label>
+                    <input class="col-md-8 form-control" type="date" id="editDueDate" required/>
+                </div>
+                <div class="form-group col-md-5">
+                    <label class="col-md-4" for="editPriority"> Priority </label>
+                    <select class="col-md-8 form-control" id="editPriority">
+                        <option style="color:green">low</option>w</option>
+                        <option style="color:darkgoldenrod" selected>medium</option>
+                        <option style="color:orangered">high</option>
+                    </select>
+                </div>
+                <div class="col-2 center">
+                    <input type="checkbox" id="editStatus">
+                </div>
+            </form>
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success" id="updateTaskButton" onclick="UpdateTask();window.location.reload()">Update </button>
+            <button type="button" class="btn btn-danger" onclick="HideModal()">Close</button>
+          </div>
+           
+        </div>
+      </div>
+    </div>
+    
+</div>
     
 
 </body>
