@@ -36,8 +36,8 @@ const db = new Sequelize({
     },
     priority: {
         type: Sequelize.ENUM(),
-        values: ('High', 'Medium','Low'),
-        defaultValue:'Medium',
+        values: ('high', 'medium','low'),
+        defaultValue:'medium',
         allowNull: false
       }
     
