@@ -38,52 +38,85 @@ route.post('/', async (req, res) => {
       return res.status(400).send({ error: 'Task dueDate not provided' }) 
     }
     
+    //validation status
+    if(req.body.status !="incomplete" && req.body.status !='completed')
+    {
+      return res.status(400).send({ error: 'status can be incomplete or complete  '}) 
+    }
+    //validation priority
+    if(req.body.priority.toLowerCase() !='low' && req.body.priority.toLowerCase() !='medium' && req.body.priority.toLowerCase() !="high")
+    {
+      return res.status(400).send({ error: 'priority can be Low, Medium or Hign only' }) 
+    }
+
     const newTodo = await Tasks.create({
         title: req.body.title,
         description:req.body.description,
         dueDate: req.body.dueDate,
-        status: req.body.status,
-        priority:req.body.priority
+        status: req.body.status.toLowerCase(),
+        priority:req.body.priority.toLowerCase()
     })
 
-    res.status(201).send({ success: 'New task added' })
+    res.status(201).send({ data:newTodo ,success: 'New task added' })
   })
 
 // UPDATE A TASK
 route.patch('/:id', async (req, res) => {
+
   if (isNaN(Number(req.params.id))) {
     return res.status(400).send({
       updated: false ,
       error: 'task id must be an integer'
     })
   }
- 
-  if(typeof req.body.dueDate !== 'string')
+
+  //Checking if entered Taskid exists in database
+  const idList= await Tasks.findOne({where:{id:req.params.id} 
+  });
+
+  if (idList==null)
+  {
+    return res.status(400).send({ updated: false , error: 'task ID :'+ req.params.id + ' doen`t exist. '}) 
+  }
+
+ //validation status
+ if(req.body.status.toLowerCase() !="incomplete" && req.body.status.toLowerCase() !="completed")
+ {
+   return res.status(400).send({ updated: false , error: 'status can be incomplete or completed only' }) 
+ }
+
+  //if only status needs to be updated
+  if(!req.body.dueDate && !req.body.priority )
+  {
+      const updateTask = await Tasks.update({
+      status: req.body.status},
+      {where:{id:req.params.id}
+    })
+
+  return res.status(201).send({ updated: true , success: 'task updated.' })
+  
+  }
+
+  //if other info also provided, validating
+  if(typeof req.body.dueDate !== 'string' || typeof req.body.priority !== 'string')
   {
     return res.status(400).send({ updated: false , error: 'Task dueDate not provided' }) 
   }
 
- const idList= await Tasks.findAll({
-    attributes:['id'] 
-  });
-
-  if (!(req.params.id in idList))
-  {
-    return res.status(400).send({ updated: false , error: 'task ID :'+ req.params.id + ' doen`t exist. '}) 
-  }
+  //checkinf if taskId exists in database
+ 
   const updateTask = await Tasks.update({
     dueDate: req.body.dueDate,
-    status: req.body.status,
-    priority:req.body.priority
+    status: req.body.status.toLowerCase(),
+    priority:req.body.priority.toLowerCase()
 
 }, {where:{id:req.params.id}})
 
 if(updateTask)
-    res.status(201).send({ updated: true , success: 'task updated.' })
+    return res.status(201).send({ updated: true , success: 'task updated.' })
 else
-    res.status(500).send({ updated: false , error:"Couldn`t update data. Try again later" })
+    return res.status(500).send({ updated: false , error:"Couldn`t update data. Try again later" })
 })
-
 
 //EXPORTING THE MODULE
 module.exports = route
