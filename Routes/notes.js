@@ -23,13 +23,11 @@ route.get('/:id/notes',  async (req, res) => {
 //ADD NOTES TO TASK WITH TASK ID
 route.post('/:id/notes',  async (req, res) => {
 
-    const idList= await Tasks.findAll({
-        attributes:['id'] 
-      });
-
-    if(!(req.params.id in idList))
+    const idList= await Tasks.findOne({where:{id:req.params.id}});
+  
+    if (idList==null)
     {
-        return res.status(404).send({ error: 'No task found with id = ' + req.params.id})
+      return res.status(400).send({ updated: false , error: 'task ID :'+ req.params.id + ' doen`t exist. '}) 
     }
     
     await Notes.create({
