@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task and Notes Manager</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./Style.css">
+    <script src="./Script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <h2>TASK AND NOTES MANAGER</h2>
+    </header>
+
+    <div class="new-task">
+        <div class="add-new-task">
+            <h4>Add New Task </h4>
+        </div>
+        <form class="form form-inline">
+            <div class="form-group col-md-6">
+                <label class="col-md-4" for="title"> Title </label>
+                <input class="col-md-8 form-control" type="text" id="title" required/>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="col-md-4" for="dueDate"> Due Date </label>
+                <input class="col-md-8 form-control" type="date" id="dueDate" required/>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="col-md-4" for="description"> Description </label>
+                <input class="col-md-8 form-control" type="text" id="description" />
+            </div>
+            <div class="form-group col-md-6">
+                <label class="col-md-4" for="priority"> Priority </label>
+                <select class="col-md-8 form-control" id="priority">
+                    <option style="color:green">low</option>w</option>
+                    <option style="color:darkgoldenrod" selected>medium</option>
+                    <option style="color:orangered">high</option>
+                </select>
+            </div>
+            <div class="form-group button col-md-12">
+                <button type="submit" class="btn btn-info" onclick="AddNewTask()">Add</button>
+            </div>
+        </form>
+    </div>
+    <div class="task-sort">
+        
+    </div>
+    <div id="task-list">
+        
+        <!-- <div class="card flexbox task" onclick="event.stopPropagation();" id="0"> 
+            <i class="fa fa-edit" onclick="event.stopPropagation();" ></i>
+            <div class="flexbox col-12 col task-info" taskid="0"> 
+                <div class="card-header col-12 flexbox">
+                    <h5>Task Tittle</h5>
+                </div>
+                
+                <div class="flexbox col-10 sol-sm-11">
+                    <p class="card-text col-12  pt-3 "> this is a task description if any </p>
+                    <span class="col-sm-6"> Due Date : <span class="task-dueDate"> 2020-12-12 </span>
+                    </span>
+                    <span class="col-sm-6">
+                        Priority:
+                        <strong class="task-priority"> High </strong>
+                    </span>
+                </div>
+                <div class="col-2 col-sm-1 status">
+                    <input type="checkbox" taskid=1 onclick="updateStatus();event.stopPropagation();">
+                </div>
+            </div>
+            <div class="flexbox col-12 task-notes" taskid=0>
+                <div class="card-body">
+                    <div class="card-header col-12"><h5>Notes</h5></div>
+                    <ul class="list-group list-group-flush" taskid="0">
+                        <li class="list-group-item flexbox col-12 p-0">
+                            <form class="col-12 form-inline col">
+                            <input class="form-control col-10" type="text" placeholder="  add a note" required>
+                            <button class="btn btn-info col-2" type="submit" onclick="event.stopPropagation()"> Add </button>
+                        </form>
+                        </li>    
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </div>
+        </div>  -->
+    </div>
+
+
+    
+
+</body>
+
+</html>

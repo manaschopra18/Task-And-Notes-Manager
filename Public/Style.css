@@ -1,0 +1,121 @@
+body{
+   background-color:white;
+   background-color:rgb(53, 119, 119);
+
+   background-image: url("./Assets/inspiration-geometry.png");
+   background-attachment: fixed;
+   
+}
+header{
+    text-align: center;
+    width:100%;
+    background-image: url("./Assets/inspiration-geometry.png");
+    box-shadow: 0px 1px 4px darkslategray; 
+    background-color:rgb(53, 119, 119);
+    position:sticky;
+    top: 0px;
+    z-index:2;
+}
+h2{
+    margin:0px;
+    padding:10px 0px;
+    color:rgb(211, 221, 221);
+}
+.add-new-task{
+    border-bottom:1px solid darkslategray;
+    width:100%;
+    padding:10px;
+    padding-left:15px;
+    background-color:rgb(237, 239, 241) ;
+}
+.new-task{
+    width: 80%;
+    margin:auto;
+    margin-top:25px;
+    display:flex;
+    flex-wrap: wrap;
+    box-shadow:1px 1px 3px lightgray;
+    /* box-shadow: 2px 2px 3px orangered ;
+    box-shadow: 2px 2px 3px orangered ; */
+    border-radius: 3px 3px 2px 2px;
+    background-color:whitesmoke;
+}
+.form{
+    padding:15px;
+}
+.form-group {
+   margin:10px 0px;
+}
+.button{
+    justify-content: space-around;
+}
+#task-list{
+    width:80%;
+    margin:40px auto;
+}
+
+input[type="checkbox"]:hover{
+    cursor: pointer;
+}
+
+input[type="checkbox"]{
+   transform: scale(1.6);
+
+   /* z-index: 3;
+     */
+}
+
+/* span{
+    display: inline-block;
+} */
+.flexbox{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.col{
+    padding:0px;
+}
+.task-info{
+    /* z-index: 2; */
+    padding-bottom: 30px;
+    background-color: rgb(213, 231, 231);
+    box-shadow: 0px 2px darkgrey;
+    border-radius:2px;
+}
+.task-info:active{
+    transform: translate(0.5px,2px);
+}
+.card-body{
+    padding:0px;
+}
+.task-notes{
+    padding:0;
+
+}
+.hide{
+    display: none;
+}
+i.fa{
+    display: block;
+    position:absolute;
+    top:13px;
+    right:15px;
+    width:5%;
+    height: 20%;
+    z-index: 1;
+    font-size: 23px;
+    background-color: transparent;
+
+
+}
+i::before{
+    cursor: pointer;
+}
+i:active{
+transform: translate(1px,2px);
+}
+.task{
+    margin-top: 25px;
+}
