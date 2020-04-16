@@ -14,7 +14,7 @@ app.use('/tasks', noteRoute)
 
 db.sync()
   .then(() => {
-    app.listen(5001)
+    app.listen(process.env.PORT || 5001)
   })
   .catch((err) => {
     console.error(err)
