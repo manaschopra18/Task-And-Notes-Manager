@@ -158,3 +158,9 @@ body{
     font-weight: 450;
 
 }
+
+@media screen and (Max-width: 480px) {
+    .task-sort{
+        top:99px;
+    }
+  }

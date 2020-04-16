@@ -196,14 +196,14 @@ async function AddNotesToTask(id, notes)
     //input 
     let input=document.createElement('input');
     input.id="note-input-"+id;
-    input.classList.add("form-control","col-10");
+    input.classList.add("form-control","col-9","col-sm-10");
     input.type="text";
     input.placeholder="  add a note";
     input.addEventListener('click',()=> {event.stopPropagation()});
     inputLi.appendChild(input); // added input
 
     let button=document.createElement('button');
-    button.classList.add("btn","btn-info","col-2");
+    button.classList.add("btn","btn-info","col-3","col-sm-2");
     button.id="add-"+id;
     button.setAttribute("taskid",id);
     button.type="submit";

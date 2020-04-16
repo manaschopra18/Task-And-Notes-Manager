@@ -61,8 +61,8 @@
                  Due Date
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" onclick="sort(this.id)" id="sortByDateAscending">Ascending</a>
-                <a class="dropdown-item" href="#" onclick="sort(this.id)" id="sortByDateDescending">Descending</a>
+                <a class="dropdown-item" onclick="sort(this.id)" id="sortByDateAscending">Ascending</a>
+                <a class="dropdown-item" onclick="sort(this.id)" id="sortByDateDescending">Descending</a>
               </div>
             </div>
           </div>
@@ -96,7 +96,7 @@
                         <li class="list-group-item flexbox col-12 p-0">
                             <form class="col-12 form-inline col">
                             <input class="form-control col-10" type="text" placeholder="  add a note" required>
-                            <button class="btn btn-info col-2" type="submit" onclick="event.stopPropagation()"> Add </button>
+                            <button class="btn btn-info col-3 col-sm-2" type="submit" onclick="event.stopPropagation()"> Add </button>
                         </form>
                         </li>    
                         <li class="list-group-item">Cras justo odio</li>
